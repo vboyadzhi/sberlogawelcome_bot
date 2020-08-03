@@ -148,6 +148,7 @@ def check(update, context, override_lock=None):
     logger.info('check func')
 
     chat_id = update.message.chat_id
+    message_id = update.message.message_id
     chat_str = str(chat_id)
 
     if chat_id > 0:
@@ -294,6 +295,7 @@ def help(update, context):
 
     chat_id = update.message.chat.id
     message_id = update.message.message_id
+    delete_async(context, chat_id, message_id)
     chat_str = str(chat_id)
 
     cur = conn.cursor()
@@ -311,7 +313,6 @@ def help(update, context):
             disable_web_page_preview=True,
         )
 
-    delete_async(context, chat_id, message_id)
 
 
 # Set custom message
@@ -320,13 +321,13 @@ def set_welcome(update, context):
     logger.info('set_welcome func')
 
     chat_id = update.message.chat.id
-
+    message_id = update.message.message_id
+    delete_async(context, chat_id, message_id)
     # Check admin privilege and group context
     if not check(update, context):
         return
 
     # Split message into words and remove mentions of the bot
-    message_id = update.message.message_id
     message = update.message.text.partition(" ")[2]
 
     # Only continue if there's a message
@@ -361,7 +362,6 @@ def set_welcome(update, context):
             conn.commit()
 
 
-    delete_async(context, chat_id, message_id)
     send_short_async(context, chat_id=chat_id, text="Got it!")
 
 
@@ -420,6 +420,8 @@ def disable_goodbye(update, context):
     logger.info('disable_goodbye func')
 
     chat_id = update.message.chat.id
+    message_id = update.message.message_id
+    delete_async(context, chat_id, message_id)
 
     # Check admin privilege and group context
     if not check(update, context):
@@ -451,6 +453,8 @@ def lock(update, context):
     logger.info('lock func')
 
     chat_id = update.message.chat.id
+    message_id = update.message.message_id
+    delete_async(context, chat_id, message_id)
 
     # Check admin privilege and group context
     if not check(update, context, override_lock=True):
@@ -484,6 +488,8 @@ def quiet(update, context):
     logger.info('quiet func')
 
     chat_id = update.message.chat.id
+    message_id = update.message.message_id
+    delete_async(context, chat_id, message_id)
 
     # Check admin privilege and group context
     if not check(update, context, override_lock=True):
@@ -516,6 +522,8 @@ def unquiet(update, context):
     logger.info('unquiet func')
 
     chat_id = update.message.chat.id
+    message_id = update.message.message_id
+    delete_async(context, chat_id, message_id)
 
     # Check admin privilege and group context
     if not check(update, context, override_lock=True):
@@ -540,7 +548,6 @@ def unquiet(update, context):
             cur.execute(sql, (False, str(chat_id)))
             conn.commit()
 
-
     send_short_async(context, chat_id=chat_id, text="Got it!")
 
 
@@ -548,6 +555,8 @@ def unlock(update, context):
     """ Unlocks the chat, so everyone can change settings """
 
     chat_id = update.message.chat.id
+    message_id = update.message.message_id
+    delete_async(context, chat_id, message_id)
 
     # Check admin privilege and group context
     if not check(update, context):
