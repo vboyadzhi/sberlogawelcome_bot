@@ -170,10 +170,9 @@ def check(update, context, override_lock=None):
     logger.info('lock = '+ str(lock)+ 'quiet = ' + str(quiet)+ 'admin = ' + str(admin))
     cur.close()
 
-
     locked = override_lock if override_lock is not None else lock
 
-    if locked and (user_member in ["creator", "administrator"]):
+    if locked and (str(user_member) not in ["creator", "administrator"]):
         if  not quiet:
             send_short_async(
                 context,
@@ -309,7 +308,7 @@ def help(update, context):
     logger.info('quiet = ' + str(quiet)+ ', admin = '+ str(admin))
     cur.close()
 
-    if (not quiet) or (user_member not in ["creator", "administrator"]):
+    if (not quiet) or (str(user_member) in ["creator", "administrator"]):
         send_short_async(
             context,
             chat_id=chat_id,
