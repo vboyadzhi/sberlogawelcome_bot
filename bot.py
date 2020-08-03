@@ -309,7 +309,7 @@ def help(update, context):
     logger.info('quiet = ' + str(quiet)+ ', admin = '+ str(admin))
     cur.close()
 
-    if (not quiet) or (user_member in ["creator", "administrator"]):
+    if (not quiet) or (user_member not in ["creator", "administrator"]):
         send_short_async(
             context,
             chat_id=chat_id,
