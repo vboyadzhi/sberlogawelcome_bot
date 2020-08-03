@@ -149,6 +149,7 @@ def check(update, context, override_lock=None):
 
     chat_id = update.message.chat_id
     message_id = update.message.message_id
+    user_id = update.message.from_user.id
     chat_str = str(chat_id)
 
     if chat_id > 0:
@@ -157,6 +158,8 @@ def check(update, context, override_lock=None):
         )
         return False
 
+    user_member = context.bot.get_chat_member(chat_id, user_id)
+    logger.info('user_id = ' + str(user_id) + 'is' + str(user_member))
 
     cur = conn.cursor()
     logger.info("select lock, admin, quiet from chats where chat_id="+str(chat_id))
@@ -170,7 +173,7 @@ def check(update, context, override_lock=None):
 
     locked = override_lock if override_lock is not None else lock
 
-    if locked and admin != update.message.from_user.id:
+    if locked and admin != user_id:
         if  not quiet:
             send_short_async(
                 context,
