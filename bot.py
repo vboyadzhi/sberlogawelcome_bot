@@ -41,7 +41,9 @@ help_text = (
     "part of. By default, only the person who invited the bot into "
     "the group is able to change settings.\nCommands:\n\n"
     "/welcome - Set welcome message\n"
+    "/get_welcome - Returns current welcome message\n"
     "/goodbye - Set goodbye message\n"
+    "/get_goodbye - Returns current goodbye message\n"
     "/disable\\_goodbye - Disable the goodbye message\n"
     "/lock - Only the person who invited the bot can change messages\n"
     "/unlock - Everyone can change messages\n"
@@ -289,6 +291,27 @@ def introduce(update, context):
     )
     send_short_async(context, chat_id=chat_id, text=text)
 
+def get_welcome(update, context):
+    logger.info('get_welcome func')
+
+    chat_id = update.message.chat.id
+    message_id = update.message.message_id
+    user_id = update.message.from_user.id
+    user = context.bot.get_chat_member(chat_id, user_id)
+    delete_async(context, chat_id, message_id)
+    chat_str = str(chat_id)
+    welcome(update, context,user)
+
+def get_goodbye(update, context):
+    logger.info('get_welcome func')
+
+    chat_id = update.message.chat.id
+    message_id = update.message.message_id
+    user_id = update.message.from_user.id
+    user = context.bot.get_chat_member(chat_id, user_id)
+    delete_async(context, chat_id, message_id)
+    chat_str = str(chat_id)
+    goodbye(update, context, user)
 
 # Print help text
 def help(update, context):
@@ -684,7 +707,9 @@ def main():
     dp.add_handler(CommandHandler("start", help))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("welcome", set_welcome))
+    dp.add_handler(CommandHandler("get_welcome", get_welcome))
     dp.add_handler(CommandHandler("goodbye", set_goodbye))
+    dp.add_handler(CommandHandler("get_goodbye", get_goodbye))
     dp.add_handler(CommandHandler("disable_goodbye", disable_goodbye))
     dp.add_handler(CommandHandler("lock", lock))
     dp.add_handler(CommandHandler("unlock", unlock))
