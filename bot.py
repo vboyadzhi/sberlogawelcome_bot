@@ -110,7 +110,7 @@ def send_short_async(context, *args, **kwargs):
 def send_long_async(context, *args, **kwargs):
     logger.info('send_long_async func')
     message = context.bot.send_message(*args, **kwargs)
-    time.sleep(180)
+    time.sleep(360)
     chat_id = message.chat.id
     message_id = message.message_id
     context.bot.delete_message(chat_id, message_id)
@@ -297,7 +297,7 @@ def get_welcome(update, context):
     chat_id = update.message.chat.id
     message_id = update.message.message_id
     user_id = update.message.from_user.id
-    user = context.bot.get_chat_member(chat_id, user_id)
+    user = context.bot.get_chat_member(chat_id, user_id)['user']
     delete_async(context, chat_id, message_id)
     chat_str = str(chat_id)
     welcome(update, context,user)
@@ -308,7 +308,7 @@ def get_goodbye(update, context):
     chat_id = update.message.chat.id
     message_id = update.message.message_id
     user_id = update.message.from_user.id
-    user = context.bot.get_chat_member(chat_id, user_id)
+    user = context.bot.get_chat_member(chat_id, user_id)['user']
     delete_async(context, chat_id, message_id)
     chat_str = str(chat_id)
     goodbye(update, context, user)

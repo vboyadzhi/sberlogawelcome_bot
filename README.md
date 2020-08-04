@@ -9,6 +9,8 @@ Commands:
   
 `/welcome` - Set welcome message  
 `/goodbye` - Set goodbye message  
+`/get_welcome` - Returns current welcome message  
+`/get_goodbye` - Returns current goodbye message    
 `/disable_goodbye` - Disable the goodbye message  
 `/lock` - Only the person who invited the bot can change messages  
 `/unlock` - Everyone can change messages  
