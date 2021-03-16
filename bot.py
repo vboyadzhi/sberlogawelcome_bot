@@ -157,7 +157,7 @@ def check(update, context, override_lock=None):
 
     if chat_id > 0:
         send_short_async(
-            context, chat_id=chat_id, text="Please add me to a group first!", disable_web_page_preview=True)
+            context, chat_id=chat_id, text="Please add me to a group first!", disable_web_page_preview=True
         )
         return False
 
@@ -179,7 +179,7 @@ def check(update, context, override_lock=None):
             send_short_async(
                 context,
                 chat_id=chat_id,
-                text="Sorry, only the person who invited me can do that.", disable_web_page_preview=True)
+                text="Sorry, only the person who invited me can do that.", disable_web_page_preview=True
             )
         return False
 
@@ -365,7 +365,7 @@ def set_welcome(update, context):
             text="You need to send a message, too! For example:\n"
             "<code>/welcome Hello $username, welcome to "
             "$title!</code>",
-            parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            parse_mode=ParseMode.HTML, disable_web_page_preview=True
         )
         return
 
@@ -414,7 +414,7 @@ def set_goodbye(update, context):
             chat_id=chat_id,
             text="You need to send a message, too! For example:\n"
             "<code>/goodbye Goodbye, $username!</code>",
-            parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            parse_mode=ParseMode.HTML, disable_web_page_preview=True
         )
         return
 
