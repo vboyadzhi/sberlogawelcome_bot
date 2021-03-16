@@ -157,7 +157,7 @@ def check(update, context, override_lock=None):
 
     if chat_id > 0:
         send_short_async(
-            context, chat_id=chat_id, text="Please add me to a group first!",
+            context, chat_id=chat_id, text="Please add me to a group first!", disable_web_page_preview=True)
         )
         return False
 
@@ -179,7 +179,7 @@ def check(update, context, override_lock=None):
             send_short_async(
                 context,
                 chat_id=chat_id,
-                text="Sorry, only the person who invited me can do that.",
+                text="Sorry, only the person who invited me can do that.", disable_web_page_preview=True)
             )
         return False
 
@@ -213,7 +213,7 @@ def welcome(update, context, new_member):
     # Replace placeholders and send message
     text = text.replace("$username", new_member.first_name)
     text = text.replace("$title", message.chat.title)
-    send_long_async(context, chat_id=chat_id, text=text, parse_mode=ParseMode.HTML)
+    send_long_async(context, chat_id=chat_id, text=text, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
 
 # Welcome a user to the chat
@@ -247,7 +247,7 @@ def goodbye(update, context):
     # Replace placeholders and send message
     text = text.replace("$username", message.left_chat_member.first_name)
     text = text.replace("$title", message.chat.title)
-    send_long_async(context, chat_id=chat_id, text=text, parse_mode=ParseMode.HTML)
+    send_long_async(context, chat_id=chat_id, text=text, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
 
 # Introduce the bot to a chat its been added to
@@ -289,7 +289,7 @@ def introduce(update, context):
         "I will now greet anyone who joins this chat with a "
         "nice message 😊 \nCheck the /help command for more info!"
     )
-    send_short_async(context, chat_id=chat_id, text=text)
+    send_short_async(context, chat_id=chat_id, text=text, disable_web_page_preview=True)
 
 def get_welcome(update, context):
     logger.info('get_welcome func')
@@ -365,7 +365,7 @@ def set_welcome(update, context):
             text="You need to send a message, too! For example:\n"
             "<code>/welcome Hello $username, welcome to "
             "$title!</code>",
-            parse_mode=ParseMode.HTML,
+            parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         )
         return
 
@@ -389,7 +389,7 @@ def set_welcome(update, context):
             conn.commit()
 
 
-    send_short_async(context, chat_id=chat_id, text="Got it!")
+    send_short_async(context, chat_id=chat_id, text="Got it!", disable_web_page_preview=True)
 
 
 # Set custom message
@@ -414,7 +414,7 @@ def set_goodbye(update, context):
             chat_id=chat_id,
             text="You need to send a message, too! For example:\n"
             "<code>/goodbye Goodbye, $username!</code>",
-            parse_mode=ParseMode.HTML,
+            parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         )
         return
 
@@ -439,7 +439,7 @@ def set_goodbye(update, context):
 
     delete_async(context, chat_id, message_id)
 
-    send_short_async(context, chat_id=chat_id, text="Got it!")
+    send_short_async(context, chat_id=chat_id, text="Got it!", disable_web_page_preview=True)
 
 
 def disable_goodbye(update, context):
@@ -472,7 +472,7 @@ def disable_goodbye(update, context):
             cur.execute(sql, (False, str(chat_id)))
             conn.commit()
 
-    send_short_async(context, chat_id=chat_id, text="Got it!")
+    send_short_async(context, chat_id=chat_id, text="Got it!", disable_web_page_preview=True)
 
 
 def lock(update, context):
@@ -507,7 +507,7 @@ def lock(update, context):
             cur.execute(sql, (True, str(chat_id)))
             conn.commit()
 
-    send_short_async(context, chat_id=chat_id, text="Got it!")
+    send_short_async(context, chat_id=chat_id, text="Got it!", disable_web_page_preview=True)
 
 
 def quiet(update, context):
@@ -541,7 +541,7 @@ def quiet(update, context):
             cur.execute(sql, (True, str(chat_id)))
             conn.commit()
 
-    send_short_async(context, chat_id=chat_id, text="Got it!")
+    send_short_async(context, chat_id=chat_id, text="Got it!", disable_web_page_preview=True)
 
 
 def unquiet(update, context):
@@ -575,7 +575,7 @@ def unquiet(update, context):
             cur.execute(sql, (False, str(chat_id)))
             conn.commit()
 
-    send_short_async(context, chat_id=chat_id, text="Got it!")
+    send_short_async(context, chat_id=chat_id, text="Got it!", disable_web_page_preview=True)
 
 
 def unlock(update, context):
@@ -608,7 +608,7 @@ def unlock(update, context):
             cur.execute(sql, (False, str(chat_id)))
             conn.commit()
 
-    send_short_async(context, chat_id=chat_id, text="Got it!")
+    send_short_async(context, chat_id=chat_id, text="Got it!", disable_web_page_preview=True)
 
 
 def empty_message(update, context):
